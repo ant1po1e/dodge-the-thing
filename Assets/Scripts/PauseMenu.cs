@@ -30,6 +30,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
+        PlayButtonClickSound();
         pausePanel.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
@@ -37,6 +38,7 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
+        PlayButtonClickSound();
         pausePanel.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
@@ -44,7 +46,13 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
+        PlayButtonClickSound();
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void PlayButtonClickSound()
+    {
+        SoundManager.instance.PlayAudio(SoundManager.instance.buttonUI);
     }
 }

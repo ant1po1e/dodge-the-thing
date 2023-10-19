@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject failPanel;
+
     public float slowness = 10f;
 
     public void GameOver()
@@ -15,15 +17,15 @@ public class GameManager : MonoBehaviour
     IEnumerator RestartLevel()
     {
         PlayFailSound();
+        PauseMenu.instance.isFail = true;
         Time.timeScale = 1f / slowness;
         Time.fixedDeltaTime = Time.fixedDeltaTime / slowness;
 
         yield return new WaitForSeconds(2f / slowness);
 
-        Time.timeScale = 1f;
+        failPanel.SetActive(true);
+        Time.timeScale = 0f;
         Time.fixedDeltaTime = Time.fixedDeltaTime * slowness;
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void PlayFailSound()

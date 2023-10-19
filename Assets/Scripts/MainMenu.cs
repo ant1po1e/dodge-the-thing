@@ -64,6 +64,11 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
+    public void ResetButton()
+    {
+        ScoreManager.instance.ResetHighscore();
+    }
+
     public void PlayButtonClickSound()
     {
         SoundManager.instance.PlayAudio(SoundManager.instance.buttonUI);

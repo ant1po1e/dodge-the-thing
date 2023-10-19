@@ -6,16 +6,31 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public static bool isPaused = false;
+    public bool isFail = false;
     public GameObject pausePanel;
+    public GameObject failPanel;
+
+    #region Singleton
+    public static PauseMenu instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+    #endregion
 
     void Start()
     {
         pausePanel.SetActive(false);
+        failPanel.SetActive(false);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && isFail == false)
         {
             if (isPaused)
             {
@@ -42,6 +57,15 @@ public class PauseMenu : MonoBehaviour
         pausePanel.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+    }
+
+    public void RestartGame()
+    {
+        PlayButtonClickSound();
+        Time.timeScale = 1f;
+        failPanel.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        isFail = false;
     }
 
     public void MainMenu()

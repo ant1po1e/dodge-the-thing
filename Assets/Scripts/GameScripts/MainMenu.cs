@@ -7,11 +7,13 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject menuPanel;
     public GameObject levelPanel;
+    public GameObject creditPanel;
 
     void Start()
     {
         levelPanel.SetActive(false);
         menuPanel.SetActive(true);
+        creditPanel.SetActive(false);
     }
 
     public void PlayGame()
@@ -66,7 +68,20 @@ public class MainMenu : MonoBehaviour
 
     public void ResetButton()
     {
+        PlayButtonClickSound();
         ScoreManager.instance.ResetHighscore();
+    }
+
+    public void CreditOpen()
+    {
+        PlayButtonClickSound();
+        creditPanel.SetActive(true);
+    }
+
+    public void CreditClosed()
+    {
+        PlayButtonClickSound();
+        creditPanel.SetActive(false);
     }
 
     public void PlayButtonClickSound()

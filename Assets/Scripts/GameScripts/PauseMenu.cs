@@ -10,6 +10,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject pausePanel;
     public GameObject failPanel;
     public GameObject countUI;
+    public GameObject pauseButton;
 
     #region Singleton
     public static PauseMenu instance;
@@ -27,6 +28,7 @@ public class PauseMenu : MonoBehaviour
     {
         pausePanel.SetActive(false);
         failPanel.SetActive(false);
+        pauseButton.SetActive(true);
     }
 
     void Update()
@@ -47,6 +49,7 @@ public class PauseMenu : MonoBehaviour
     public void ResumeGame()
     {
         PlayButtonClickSound();
+        pauseButton.SetActive(true);
         pausePanel.SetActive(false);
         countUI.SetActive(true);
         Time.timeScale = 1f;
@@ -56,6 +59,7 @@ public class PauseMenu : MonoBehaviour
     public void PauseGame()
     {
         PlayButtonClickSound();
+        pauseButton.SetActive(false);
         pausePanel.SetActive(true);
         countUI.SetActive(false);
         Time.timeScale = 0f;

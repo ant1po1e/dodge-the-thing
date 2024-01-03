@@ -20,16 +20,15 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        // float x = Input.GetAxis("Horizontal") * Time.fixedDeltaTime * speed;
+        if (PowerUp.Instance.isSpeedUp == true)
+        {
+            speed = 30f;
+        }
+        else
+        {
+            speed = 15f;
+        }
 
-        // Vector2 newPos = rb.position + Vector2.right * x;
-
-        // newPos.x = Mathf.Clamp(newPos.x, -mapWidth, mapWidth);
-
-        // rb.MovePosition(newPos);
-
-
-        // rb.velocity x= moveVector * speed;
         Vector2 x = moveVector * Time.fixedDeltaTime * speed;
         Vector2 newPos = rb.position + Vector2.right * x;
         newPos.x = Mathf.Clamp(newPos.x, -mapWidth, mapWidth);

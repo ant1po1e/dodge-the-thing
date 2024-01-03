@@ -17,7 +17,7 @@ public class ScoreManager : MonoBehaviour
     }
     #endregion
 
-    int score = 0;
+    public int score = 0;
     int highscore = 0;
 
     void Start()
@@ -29,7 +29,15 @@ public class ScoreManager : MonoBehaviour
 
     public void AddPoint()
     {
-        score += 1;
+        if (PowerUp.Instance.isScoreMultiplier == false)
+        {
+            score += 1;
+        }
+        else if (PowerUp.Instance.isScoreMultiplier == true)
+        {
+            score += 3;
+        }
+
         scoreText.text = "Score: " + score.ToString();
         if (highscore < score)
             PlayerPrefs.SetInt("highscore", score);

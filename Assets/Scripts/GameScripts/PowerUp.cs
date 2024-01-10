@@ -25,7 +25,10 @@ public class PowerUp : MonoBehaviour
 
     public BoxCollider2D playerCollider;
 
-    public float slowness = 2.5f;
+    public float slowness = 5f;
+
+    private SpriteRenderer playerRenderer;
+    private Color playerColor;
 
     // float currentTime = 0f;
     // float startingTime = 3f;
@@ -42,6 +45,12 @@ public class PowerUp : MonoBehaviour
 
     void Start()
     {
+        playerRenderer = GetComponent<SpriteRenderer>();
+        playerColor = playerRenderer.color;
+        playerColor.a = 1f;
+
+        playerRenderer.color = playerColor;
+
         playerCollider = gameObject.GetComponent<BoxCollider2D>();
 
         slownessUI.SetActive(true);
@@ -98,9 +107,16 @@ public class PowerUp : MonoBehaviour
         invisibleUI.SetActive(false);
         playerCollider.enabled = false;
 
-        yield return new WaitForSeconds(5f);
+        playerColor.a = 0.1f;
+
+        playerRenderer.color = playerColor;
+
+        yield return new WaitForSeconds(5.5f);
 
         playerCollider.enabled = true;
+        playerColor.a = 1f;
+
+        playerRenderer.color = playerColor;
 
         yield return new WaitForSeconds(30f);
 

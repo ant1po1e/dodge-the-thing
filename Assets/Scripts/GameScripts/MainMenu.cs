@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,12 +9,14 @@ public class MainMenu : MonoBehaviour
     public GameObject menuPanel;
     public GameObject levelPanel;
     public GameObject creditPanel;
+    public GameObject helpPanel;
 
     void Start()
     {
         levelPanel.SetActive(false);
         menuPanel.SetActive(true);
         creditPanel.SetActive(false);
+        helpPanel.SetActive(false);
     }
 
     public void PlayGame()
@@ -82,6 +85,20 @@ public class MainMenu : MonoBehaviour
     {
         PlayButtonClickSound();
         creditPanel.SetActive(false);
+    }
+
+    public void HelpOpen()
+    {
+        PlayButtonClickSound();
+        helpPanel.SetActive(true);
+        menuPanel.SetActive(false);
+    }
+
+    public void HelpClosed()
+    {
+        PlayButtonClickSound();
+        helpPanel.SetActive(false);
+        menuPanel.SetActive(true);
     }
 
     public void PlayButtonClickSound()

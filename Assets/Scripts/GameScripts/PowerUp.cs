@@ -1,14 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.InputSystem;
-using Unity.VisualScripting;
 
 public class PowerUp : MonoBehaviour
 {
     #region Singleton
-    public static PowerUp Instance { get; set; }
+    public static PowerUp Instance { get; private set; }
 
     private void Awake()
     {
@@ -26,13 +23,6 @@ public class PowerUp : MonoBehaviour
     public BoxCollider2D playerCollider;
 
     public float slowness = 5f;
-
-    private SpriteRenderer playerRenderer;
-    private Color playerColor;
-
-    // float currentTime = 0f;
-    // float startingTime = 3f;
-
     public bool isScoreMultiplier;
     public bool isSpeedUp;
 
@@ -41,30 +31,38 @@ public class PowerUp : MonoBehaviour
     public GameObject scoreMultiplierUI;
     public GameObject speedUpUI;
 
-    // public TMP_Text text;
+    private SpriteRenderer playerRenderer;
+    private Color playerColor;
 
     void Start()
     {
-        playerRenderer = GetComponent<SpriteRenderer>();
-        playerColor = playerRenderer.color;
-        playerColor.a = 1f;
-
-        playerRenderer.color = playerColor;
-
-        playerCollider = gameObject.GetComponent<BoxCollider2D>();
-
-        slownessUI.SetActive(true);
-        invisibleUI.SetActive(true);
-
-        isScoreMultiplier = false;
-        isSpeedUp = false;
-
-        // currentTime = startingTime;
+        InitializeComponents();
+        InitializeUI();
+        ResetPowerUpStatus();
     }
 
     void Update()
     {
-        // currentTime -= 1 * Time.deltaTime;
+        // Remove unnecessary code or add meaningful comments if needed
+    }
+
+    void InitializeComponents()
+    {
+        playerRenderer = GetComponent<SpriteRenderer>();
+        playerColor = playerRenderer.color;
+        playerCollider = gameObject.GetComponent<BoxCollider2D>();
+    }
+
+    void InitializeUI()
+    {
+        slownessUI.SetActive(true);
+        invisibleUI.SetActive(true);
+    }
+
+    void ResetPowerUpStatus()
+    {
+        isScoreMultiplier = false;
+        isSpeedUp = false;
     }
 
     public void StartSlowness()
@@ -89,43 +87,37 @@ public class PowerUp : MonoBehaviour
 
     IEnumerator Slowness()
     {
-        slownessUI.SetActive(false);
-        Time.timeScale = 1f / slowness;
-        Time.fixedDeltaTime = Time.fixedDeltaTime / slowness;
+        ToggleUI(slownessUI, false);
+        AdjustTimeScale(1f / slowness, 1f / slowness);
 
         yield return new WaitForSeconds(1f);
 
-        Time.timeScale = 1f;
+        ResetTimeScale();
 
         yield return new WaitForSeconds(15f);
 
-        slownessUI.SetActive(true);
+        ToggleUI(slownessUI, true);
     }
 
     IEnumerator Invisible()
     {
-        invisibleUI.SetActive(false);
-        playerCollider.enabled = false;
-
-        playerColor.a = 0.1f;
-
-        playerRenderer.color = playerColor;
+        ToggleUI(invisibleUI, false);
+        ToggleCollider(false);
+        AdjustPlayerColor(0.1f);
 
         yield return new WaitForSeconds(5.5f);
 
-        playerCollider.enabled = true;
-        playerColor.a = 1f;
-
-        playerRenderer.color = playerColor;
+        ToggleCollider(true);
+        AdjustPlayerColor(1f);
 
         yield return new WaitForSeconds(30f);
 
-        invisibleUI.SetActive(true);
+        ToggleUI(invisibleUI, true);
     }
 
     IEnumerator ScoreMultiplier()
     {
-        scoreMultiplierUI.SetActive(false);
+        ToggleUI(scoreMultiplierUI, false);
         isScoreMultiplier = true;
 
         yield return new WaitForSeconds(5f);
@@ -134,12 +126,12 @@ public class PowerUp : MonoBehaviour
 
         yield return new WaitForSeconds(60f);
 
-        scoreMultiplierUI.SetActive(true);
+        ToggleUI(scoreMultiplierUI, true);
     }
 
     IEnumerator SpeedUp()
     {
-        speedUpUI.SetActive(false);
+        ToggleUI(speedUpUI, false);
         isSpeedUp = true;
 
         yield return new WaitForSeconds(5f);
@@ -148,7 +140,39 @@ public class PowerUp : MonoBehaviour
 
         yield return new WaitForSeconds(30f);
 
-        speedUpUI.SetActive(true);
+        ToggleUI(speedUpUI, true);
+    }
+
+    void ToggleUI(GameObject uiObject, bool isActive)
+    {
+        if (uiObject != null)
+        {
+            uiObject.SetActive(isActive);
+        }
+    }
+
+    void AdjustTimeScale(float timeScale, float fixedDeltaTime)
+    {
+        Time.timeScale = timeScale;
+        Time.fixedDeltaTime = Time.fixedDeltaTime / timeScale;
+    }
+
+    void ResetTimeScale()
+    {
+        Time.timeScale = 1f;
+    }
+
+    void ToggleCollider(bool isEnabled)
+    {
+        if (playerCollider != null)
+        {
+            playerCollider.enabled = isEnabled;
+        }
+    }
+
+    void AdjustPlayerColor(float alpha)
+    {
+        playerColor.a = alpha;
+        playerRenderer.color = playerColor;
     }
 }
-

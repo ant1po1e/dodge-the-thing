@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,32 +24,42 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        pausePanel.SetActive(false);
-        failPanel.SetActive(false);
-        pauseButton.SetActive(true);
+        InitializeUI();
+    }
+
+    void InitializeUI()
+    {
+        SetPanelActive(pausePanel, false);
+        SetPanelActive(failPanel, false);
+        SetPanelActive(pauseButton, true);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && isFail == false)
+        if (Input.GetKeyDown(KeyCode.Escape) && !isFail)
         {
-            if (isPaused)
-            {
-                ResumeGame();
-            }
-            else
-            {
-                PauseGame();
-            }
+            TogglePauseState();
+        }
+    }
+
+    void TogglePauseState()
+    {
+        if (isPaused)
+        {
+            ResumeGame();
+        }
+        else
+        {
+            PauseGame();
         }
     }
 
     public void ResumeGame()
     {
         PlayButtonClickSound();
-        pauseButton.SetActive(true);
-        pausePanel.SetActive(false);
-        countUI.SetActive(true);
+        SetPanelActive(pauseButton, true);
+        SetPanelActive(pausePanel, false);
+        SetPanelActive(countUI, true);
         Time.timeScale = 1f;
         isPaused = false;
     }
@@ -59,9 +67,9 @@ public class PauseMenu : MonoBehaviour
     public void PauseGame()
     {
         PlayButtonClickSound();
-        pauseButton.SetActive(false);
-        pausePanel.SetActive(true);
-        countUI.SetActive(false);
+        SetPanelActive(pauseButton, false);
+        SetPanelActive(pausePanel, true);
+        SetPanelActive(countUI, false);
         Time.timeScale = 0f;
         isPaused = true;
     }
@@ -70,7 +78,7 @@ public class PauseMenu : MonoBehaviour
     {
         PlayButtonClickSound();
         Time.timeScale = 1f;
-        failPanel.SetActive(false);
+        SetPanelActive(failPanel, false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         isFail = false;
     }
@@ -85,5 +93,13 @@ public class PauseMenu : MonoBehaviour
     public void PlayButtonClickSound()
     {
         SoundManager.instance.PlayAudio(SoundManager.instance.buttonUI);
+    }
+
+    void SetPanelActive(GameObject panel, bool isActive)
+    {
+        if (panel != null)
+        {
+            panel.SetActive(isActive);
+        }
     }
 }

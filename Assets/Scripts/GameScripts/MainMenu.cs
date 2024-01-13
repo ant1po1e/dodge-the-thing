@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,54 +10,43 @@ public class MainMenu : MonoBehaviour
 
     void Start()
     {
-        levelPanel.SetActive(false);
-        menuPanel.SetActive(true);
-        creditPanel.SetActive(false);
-        helpPanel.SetActive(false);
+        InitializePanels();
+    }
+
+    void InitializePanels()
+    {
+        SetPanelActive(levelPanel, false);
+        SetPanelActive(menuPanel, true);
+        SetPanelActive(creditPanel, false);
+        SetPanelActive(helpPanel, false);
+    }
+
+    void SetPanelActive(GameObject panel, bool isActive)
+    {
+        if (panel != null)
+        {
+            panel.SetActive(isActive);
+        }
     }
 
     public void PlayGame()
     {
         PlayButtonClickSound();
-        levelPanel.SetActive(true);
-        menuPanel.SetActive(false);
+        SetPanelActive(levelPanel, true);
+        SetPanelActive(menuPanel, false);
     }
 
-    public void ToLevelOne()
+    public void LoadLevel(string levelName)
     {
         PlayButtonClickSound();
-        SceneManager.LoadScene("Level_1");
-    }
-
-    public void ToLevelTwo()
-    {
-        PlayButtonClickSound();
-        SceneManager.LoadScene("Level_2");
-    }
-
-    public void ToLevelThree()
-    {
-        PlayButtonClickSound();
-        SceneManager.LoadScene("Level_3");
-    }
-
-    public void ToLevelFour()
-    {
-        PlayButtonClickSound();
-        SceneManager.LoadScene("Level_4");
-    }
-
-    public void ToLevelFive()
-    {
-        PlayButtonClickSound();
-        SceneManager.LoadScene("Level_5");
+        SceneManager.LoadScene(levelName);
     }
 
     public void PlayClosed()
     {
         PlayButtonClickSound();
-        levelPanel.SetActive(false);
-        menuPanel.SetActive(true);
+        SetPanelActive(levelPanel, false);
+        SetPanelActive(menuPanel, true);
     }
 
     public void QuitGame()
@@ -78,27 +64,29 @@ public class MainMenu : MonoBehaviour
     public void CreditOpen()
     {
         PlayButtonClickSound();
-        creditPanel.SetActive(true);
+        SetPanelActive(creditPanel, true);
     }
 
     public void CreditClosed()
     {
         PlayButtonClickSound();
-        creditPanel.SetActive(false);
+        SetPanelActive(creditPanel, false);
     }
 
     public void HelpOpen()
     {
         PlayButtonClickSound();
-        helpPanel.SetActive(true);
-        menuPanel.SetActive(false);
+        SetPanelActive(helpPanel, true);
+        SetPanelActive(menuPanel, false);
+        SetPanelActive(creditPanel, false);
     }
 
     public void HelpClosed()
     {
         PlayButtonClickSound();
-        helpPanel.SetActive(false);
-        menuPanel.SetActive(true);
+        SetPanelActive(helpPanel, false);
+        SetPanelActive(menuPanel, true);
+        SetPanelActive(creditPanel, true);
     }
 
     public void PlayButtonClickSound()

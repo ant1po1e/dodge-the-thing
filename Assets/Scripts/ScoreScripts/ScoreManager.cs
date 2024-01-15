@@ -8,12 +8,20 @@ public class ScoreManager : MonoBehaviour
     public TMP_Text scoreText;
     public TMP_Text highscoreText;
 
+
     #region Singleton
-    public static ScoreManager instance;
+    public static ScoreManager Instance { get; private set; }
 
     private void Awake()
     {
-        instance = this;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
     #endregion
 

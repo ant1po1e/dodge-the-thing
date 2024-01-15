@@ -238,6 +238,7 @@ RectTransform:
   - {fileID: 1492743304}
   - {fileID: 1891011534}
   - {fileID: 806008849}
+  - {fileID: 397521704}
   m_Father: {fileID: 268908031}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -760,7 +761,6 @@ RectTransform:
   m_Children:
   - {fileID: 691515483}
   - {fileID: 14370031}
-  - {fileID: 397521704}
   - {fileID: 7203976}
   - {fileID: 951291910}
   - {fileID: 1010151100}
@@ -1080,12 +1080,12 @@ RectTransform:
   - {fileID: 767397717}
   - {fileID: 1435812790}
   - {fileID: 1291143377}
-  m_Father: {fileID: 268908031}
+  m_Father: {fileID: 14370031}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 308.9556, y: -7.799988}
-  m_SizeDelta: {x: -491.7329, y: 72.3028}
+  m_SizeDelta: {x: -91.73291, y: 232.3028}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &397521705
 MonoBehaviour:
@@ -2734,7 +2734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &951291910
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4117,7 +4117,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Game Icon:
+  m_text: 'GFX:
 
     MasDan'
   m_isRightToLeft: 0
@@ -6282,7 +6282,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 346, y: 130.9}
+  m_AnchoredPosition: {x: 348.88, y: 132}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1891011535
@@ -6305,7 +6305,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Made by Ant1po1e
+  m_text: Made by @_ant1po1e
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6338,7 +6338,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 19
+  m_fontStyle: 35
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

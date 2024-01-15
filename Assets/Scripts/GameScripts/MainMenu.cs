@@ -58,7 +58,7 @@ public class MainMenu : MonoBehaviour
     public void ResetButton()
     {
         PlayButtonClickSound();
-        ScoreManager.instance.ResetHighscore();
+        ScoreManager.Instance.ResetHighscore();
     }
 
     public void CreditOpen()
@@ -78,7 +78,6 @@ public class MainMenu : MonoBehaviour
         PlayButtonClickSound();
         SetPanelActive(helpPanel, true);
         SetPanelActive(menuPanel, false);
-        SetPanelActive(creditPanel, false);
     }
 
     public void HelpClosed()
@@ -86,7 +85,6 @@ public class MainMenu : MonoBehaviour
         PlayButtonClickSound();
         SetPanelActive(helpPanel, false);
         SetPanelActive(menuPanel, true);
-        SetPanelActive(creditPanel, true);
     }
 
     public void PlayButtonClickSound()

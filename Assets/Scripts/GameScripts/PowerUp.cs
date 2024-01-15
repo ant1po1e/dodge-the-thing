@@ -88,11 +88,12 @@ public class PowerUp : MonoBehaviour
     IEnumerator Slowness()
     {
         ToggleUI(slownessUI, false);
-        AdjustTimeScale(1f / slowness, 1f / slowness);
+        Time.timeScale = 1f / slowness;
+        Time.fixedDeltaTime = Time.fixedDeltaTime / slowness;
 
         yield return new WaitForSeconds(1f);
 
-        ResetTimeScale();
+        Time.timeScale = 1f;
 
         yield return new WaitForSeconds(15f);
 

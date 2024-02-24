@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Animations;
 
 public class PowerUp : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class PowerUp : MonoBehaviour
     public bool isScoreMultiplier;
     public bool isSpeedUp;
 
+    public int maxPowerUpStack = 3;
+
     public GameObject slownessUI;
     public GameObject invisibleUI;
     public GameObject scoreMultiplierUI;
@@ -43,7 +46,7 @@ public class PowerUp : MonoBehaviour
 
     void Update()
     {
-        // Remove unnecessary code or add meaningful comments if needed
+
     }
 
     void InitializeComponents()
@@ -75,6 +78,24 @@ public class PowerUp : MonoBehaviour
         StartCoroutine(Invisible());
     }
 
+    IEnumerator Invisible()
+    {
+        ToggleUI(invisibleUI, false);
+        ToggleCollider(false);
+        AnimationController.instance.PlayCameraAnimation("IsInvisible", true);
+        AnimationController.instance.PlayPlayerAnimation("IsPlayerInvisible", true);
+
+        yield return new WaitForSeconds(5.5f);
+
+        ToggleCollider(true);
+        AnimationController.instance.PlayCameraAnimation("IsInvisible", false);
+        AnimationController.instance.PlayPlayerAnimation("IsPlayerInvisible", false);
+
+        yield return new WaitForSeconds(30f);
+
+        ToggleUI(invisibleUI, true);
+    }
+
     public void StartScoreMultiplier()
     {
         StartCoroutine(ScoreMultiplier());
@@ -90,40 +111,28 @@ public class PowerUp : MonoBehaviour
         ToggleUI(slownessUI, false);
         Time.timeScale = 1f / slowness;
         Time.fixedDeltaTime = Time.fixedDeltaTime / slowness;
+        AnimationController.instance.PlayCameraAnimation("IsSlowness", true);
 
         yield return new WaitForSeconds(1f);
 
         Time.timeScale = 1f;
+        AnimationController.instance.PlayCameraAnimation("IsSlowness", false);
 
         yield return new WaitForSeconds(15f);
 
         ToggleUI(slownessUI, true);
     }
 
-    IEnumerator Invisible()
-    {
-        ToggleUI(invisibleUI, false);
-        ToggleCollider(false);
-        AdjustPlayerColor(0.1f);
-
-        yield return new WaitForSeconds(5.5f);
-
-        ToggleCollider(true);
-        AdjustPlayerColor(1f);
-
-        yield return new WaitForSeconds(30f);
-
-        ToggleUI(invisibleUI, true);
-    }
-
     IEnumerator ScoreMultiplier()
     {
         ToggleUI(scoreMultiplierUI, false);
         isScoreMultiplier = true;
+        AnimationController.instance.PlayCameraAnimation("IsScoreMultiplier", true);
 
         yield return new WaitForSeconds(5f);
 
         isScoreMultiplier = false;
+        AnimationController.instance.PlayCameraAnimation("IsScoreMultiplier", false);
 
         yield return new WaitForSeconds(60f);
 
@@ -134,10 +143,12 @@ public class PowerUp : MonoBehaviour
     {
         ToggleUI(speedUpUI, false);
         isSpeedUp = true;
+        AnimationController.instance.PlayCameraAnimation("IsSpeedUp", true);
 
         yield return new WaitForSeconds(5f);
 
         isSpeedUp = false;
+        AnimationController.instance.PlayCameraAnimation("IsSpeedUp", false);
 
         yield return new WaitForSeconds(30f);
 
@@ -169,11 +180,5 @@ public class PowerUp : MonoBehaviour
         {
             playerCollider.enabled = isEnabled;
         }
-    }
-
-    void AdjustPlayerColor(float alpha)
-    {
-        playerColor.a = alpha;
-        playerRenderer.color = playerColor;
     }
 }

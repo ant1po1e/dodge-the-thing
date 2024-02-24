@@ -8,9 +8,12 @@ public class ScoreManager : MonoBehaviour
     public TMP_Text scoreText;
     public TMP_Text highscoreText;
 
+    public Animator backgroundAnim;
+
 
     #region Singleton
-    public static ScoreManager Instance { get; private set; }
+    public static ScoreManager Instance
+    { get; private set; }
 
     private void Awake()
     {
@@ -33,6 +36,14 @@ public class ScoreManager : MonoBehaviour
         highscore = PlayerPrefs.GetInt("highscore", 0);
         scoreText.text = "Score: " + score.ToString();
         highscoreText.text = "Highscore: " + highscore.ToString();
+    }
+
+    void Update()
+    {
+        if (score >= 25)
+        {
+            backgroundAnim.SetBool("IsBackgroundChange", true);
+        }
     }
 
     public void AddPoint()

@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     IEnumerator RestartLevel()
     {
         PlayFailSound();
+        AnimationController.instance.PlayCameraAnimation("IsDead", true);
         PauseMenu.instance.isFail = true;
         Time.timeScale = 1f / slowness;
         Time.fixedDeltaTime = Time.fixedDeltaTime / slowness;

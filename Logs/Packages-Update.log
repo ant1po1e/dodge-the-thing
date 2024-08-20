@@ -55,3 +55,23 @@ The following packages were updated:
   com.unity.ide.visualstudio from version 2.0.18 to 2.0.22
   com.unity.timeline from version 1.7.5 to 1.7.6
   com.unity.visualscripting from version 1.9.0 to 1.9.1
+
+=== Wed May 15 09:18:36 2024
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.collab-proxy from version 2.2.0 to 2.3.1
+  com.unity.ide.rider from version 3.0.26 to 3.0.28
+  com.unity.visualscripting from version 1.9.1 to 1.9.4
+
+=== Fri Aug 16 08:15:49 2024
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.collab-proxy from version 2.3.1 to 2.4.3
+  com.unity.feature.2d from version 2.0.0 to 2.0.1
+  com.unity.ide.rider from version 3.0.28 to 3.0.31
